@@ -26,6 +26,10 @@
 #include <AP_HAL_Linux/qflight/qflight_buffer.h>
 #endif
 
+#if HAL_WITH_UAVCAN
+#include "CAN.h"
+#endif
+
 using namespace Linux;
 
 extern const AP_HAL::HAL& hal;
@@ -345,6 +349,13 @@ void Scheduler::_timer_task()
        */
     _run_uarts();
     RCInput::from(hal.rcin)->_timer_tick();
+#endif
+
+#if HAL_WITH_UAVCAN
+    if(hal.can_mgr != nullptr)
+    {
+        LinuxCANDriver::from(hal.can_mgr)->_timer_tick();
+    }
 #endif
 }
 
