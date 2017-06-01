@@ -34,6 +34,9 @@
 
 #if HAL_WITH_UAVCAN
 #include <AP_UAVCAN/AP_UAVCAN.h>
+#if CONFIG_HAL_BOARD == HAL_BOARD_LINUX
+#include <AP_HAL_Linux/CAN.h>
+#endif
 #endif
 
 #if CONFIG_HAL_BOARD == HAL_BOARD_PX4
@@ -197,6 +200,35 @@ void AP_BoardConfig::init()
 #if HAL_WITH_UAVCAN
     _st_can_enable = (int8_t) _var_info_can._can_enable;
     _st_can_debug = (int8_t) _var_info_can._can_debug;
+
+#if CONFIG_HAL_BOARD == HAL_BOARD_LINUX
+    if (_var_info_can._can_enable >= 1) {
+        if(hal.can_mgr == nullptr) {
+            const_cast <AP_HAL::HAL&> (hal).can_mgr = new Linux::LinuxCANDriver;
+        }
+
+        if(hal.can_mgr != nullptr) {
+            if (_var_info_can._uavcan_enable > 0) {
+                _var_info_can._uavcan = new AP_UAVCAN();
+                if (_var_info_can._uavcan != nullptr) {
+                    AP_Param::load_object_from_eeprom(_var_info_can._uavcan, AP_UAVCAN::var_info);
+
+                    hal.can_mgr->set_UAVCAN(_var_info_can._uavcan);
+
+                    if (hal.can_mgr->begin(_var_info_can._can_bitrate, 0)) {
+                        hal.console->printf("Failed to initialize can_mgr\n");
+                    } else {
+                        hal.console->printf("can_mgr initialized well\n");
+                    }
+                } else {
+                    _var_info_can._uavcan_enable = 0;
+                    hal.console->printf("AP_UAVCAN failed to allocate\n");
+                }
+            }
+        }
+    }
+#endif
+
 #endif
 
 #if HAL_HAVE_IMU_HEATER
