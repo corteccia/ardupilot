@@ -49,6 +49,10 @@
 #include "Util.h"
 #include "Util_RPI.h"
 
+#if HAL_WITH_UAVCAN
+#include "CAN.h"
+#endif
+
 using namespace Linux;
 
 #if CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_LINUX_NAVIO || \
