@@ -126,11 +126,6 @@ private:
 
     static enum px4_board_type px4_configured_board;
 
-#if HAL_WITH_UAVCAN
-    static int8_t _st_can_enable;
-    static int8_t _st_can_debug;
-#endif
-
     void px4_drivers_start(void);
     void px4_setup(void);
     void px4_setup_pwm(void);
@@ -153,6 +148,10 @@ private:
 #endif // HAL_BOARD_PX4 || HAL_BOARD_VRBRAIN
 
     static bool _in_sensor_config_error;
+#if HAL_WITH_UAVCAN
+    static int8_t _st_can_enable;
+    static int8_t _st_can_debug;
+#endif
 
     // target temperarure for IMU in Celsius, or -1 to disable
     AP_Int8 _imu_target_temperature;
