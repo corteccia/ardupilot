@@ -269,6 +269,9 @@ class linux(Board):
             'AP_HAL_Linux',
         ]
 
+        if self.with_uavcan:
+            cfg.define('UAVCAN_EXCEPTIONS', 0)
+
 
 class minlure(linux):
     def configure_env(self, cfg, env):
