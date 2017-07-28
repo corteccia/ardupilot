@@ -328,8 +328,8 @@
 #define HAL_GPIO_LED_ON           LOW
 #define HAL_GPIO_LED_OFF          HIGH
 #elif CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_LINUX_EDGE
-#define HAL_BOARD_LOG_DIRECTORY "/var/lib/ardupilot/logs"
-#define HAL_BOARD_TERRAIN_DIRECTORY "/var/lib/ardupilot/terrain"
+#define HAL_BOARD_LOG_DIRECTORY "/var/APM/logs"
+#define HAL_BOARD_TERRAIN_DIRECTORY "/var/APM/terrain"
 #define HAL_INS_DEFAULT HAL_INS_EDGE
 #define HAL_INS_MPU60x0_NAME "mpu60x0"
 #define HAL_INS_MPU60x0_NAME_EXT "mpu60x0ext"
@@ -338,6 +338,7 @@
 #define HAL_COMPASS_HMC5843_I2C_BUS 1
 #define HAL_COMPASS_HMC5843_I2C_ADDR 0x1E
 #define HAL_COMPASS_DEFAULT HAL_COMPASS_EDGE
+#define HAL_WITH_UAVCAN 1
 /* HMC5843 can be an external compass */
 #define HAL_COMPASS_HMC5843_I2C_BUS 1
 #define HAL_COMPASS_HMC5843_I2C_ADDR 0x1E
