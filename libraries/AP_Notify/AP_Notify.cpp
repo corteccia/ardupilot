@@ -141,6 +141,10 @@ void AP_Notify::init(bool enable_external_leds)
         _devices[0] = new DiscreteRGBLed(4, 27, 6, false);
         _devices[1] = new ToshibaLED_I2C();
 
+    #elif CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_LINUX_EDGE
+        _devices[0] = new RCOutputRGBLedInverted(12, 13, 14);
+        _devices[1] = new ToshibaLED_I2C();
+
     #elif CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_LINUX_BBBMINI
         _devices[0] = new AP_BoardLED();
         _devices[1] = new Buzzer();
