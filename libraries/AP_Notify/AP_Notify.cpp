@@ -30,8 +30,8 @@
 #include "VRBoard_LED.h"
 #include "DiscreteRGBLed.h"
 #include "DiscoLED.h"
+#include "Led_Sysfs.h"
 #include <stdio.h>
-#include <AP_HAL_Linux/GPIO.h>
 
 #define CONFIG_NOTIFY_DEVICES_COUNT 5
 
@@ -139,7 +139,7 @@ void AP_Notify::init(bool enable_external_leds)
         _devices[1] = new ToshibaLED_I2C();
 
     #elif CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_LINUX_NAVIO2
-        _devices[0] = new DiscreteRGBLed(NAVIO2_GPIO_RED, NAVIO2_GPIO_GREEN, NAVIO2_GPIO_BLUE, false);
+        _devices[0] = new Led_Sysfs("rgb_led0", "rgb_led2", "rgb_led1");
         _devices[1] = new ToshibaLED_I2C();
 
     #elif CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_LINUX_BBBMINI
