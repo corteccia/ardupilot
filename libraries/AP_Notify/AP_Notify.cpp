@@ -135,8 +135,9 @@ void AP_Notify::init(bool enable_external_leds)
 // Notify devices for linux boards    
 #elif CONFIG_HAL_BOARD == HAL_BOARD_LINUX
     #if CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_LINUX_NAVIO
-        _devices[0] = new NavioLED_I2C();
-        _devices[1] = new ToshibaLED_I2C();
+        _devices[0] = new AP_BoardLED();
+        _devices[1] = new NavioLED_I2C();
+        _devices[2] = new ToshibaLED_I2C();
 
     #elif CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_LINUX_NAVIO2
         _devices[0] = new Led_Sysfs("rgb_led0", "rgb_led2", "rgb_led1");
