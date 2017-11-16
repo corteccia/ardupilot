@@ -29,8 +29,13 @@
 #include <uavcan/driver/can.hpp>
 #include <uavcan/time.hpp>
 
-#define MAX_NUMBER_OF_CAN_INTERFACES    2
-#define MAX_NUMBER_OF_CAN_DRIVERS       2
+#if CONFIG_HAL_BOARD == HAL_BOARD_LINUX && CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_LINUX_EDGE
+  # define MAX_NUMBER_OF_CAN_INTERFACES    1
+  # define MAX_NUMBER_OF_CAN_DRIVERS       1
+#else
+  # define MAX_NUMBER_OF_CAN_INTERFACES    2
+  # define MAX_NUMBER_OF_CAN_DRIVERS       2
+#endif
 
 class AP_UAVCAN;
 
