@@ -51,6 +51,12 @@
 #define BLEND_MASK_USE_SPD_ACC      4
 #define BLEND_COUNTER_FAILURE_INCREMENT 10
 
+#if CONFIG_HAL_BOARD == HAL_BOARD_LINUX && CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_LINUX_EDGE
+  # define AP_GPS_TYPE_DEFAULT 9
+#else
+  # define AP_GPS_TYPE_DEFAULT 1
+#endif
+
 extern const AP_HAL::HAL &hal;
 
 // baudrates to try to detect GPSes with
@@ -68,7 +74,7 @@ const AP_Param::GroupInfo AP_GPS::var_info[] = {
     // @Values: 0:None,1:AUTO,2:uBlox,3:MTK,4:MTK19,5:NMEA,6:SiRF,7:HIL,8:SwiftNav,9:UAVCAN,10:SBF,11:GSOF,12:QURT,13:ERB,14:MAV,15:NOVA
     // @RebootRequired: True
     // @User: Advanced
-    AP_GROUPINFO("TYPE",    0, AP_GPS, _type[0], 1),
+    AP_GROUPINFO("TYPE",    0, AP_GPS, _type[0], AP_GPS_TYPE_DEFAULT),
 
     // @Param: TYPE2
     // @DisplayName: 2nd GPS type
