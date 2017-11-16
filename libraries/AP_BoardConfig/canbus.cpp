@@ -20,6 +20,12 @@
 #if HAL_WITH_UAVCAN
 #include <AP_UAVCAN/AP_UAVCAN.h>
 
+#if CONFIG_HAL_BOARD == HAL_BOARD_LINUX && CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_LINUX_EDGE
+  # define AP_CAN_ENABLE 1
+#else
+  # define AP_CAN_ENABLE 0
+#endif
+
 // table of user settable CAN bus parameters
 const AP_Param::GroupInfo AP_BoardConfig::CAN_var_info::var_info[] = {
     // @Param: ENABLE
@@ -27,7 +33,7 @@ const AP_Param::GroupInfo AP_BoardConfig::CAN_var_info::var_info[] = {
     // @Description: Enabling this option enables use of CAN buses.
     // @Values: 0:Disabled,1:Enabled first channel,2:Enabled both channels
     // @User: Advanced
-    AP_GROUPINFO_FLAGS("ENABLE", 1, AP_BoardConfig::CAN_var_info, _can_enable, 0, AP_PARAM_FLAG_ENABLE),
+    AP_GROUPINFO_FLAGS("ENABLE", 1, AP_BoardConfig::CAN_var_info, _can_enable, AP_CAN_ENABLE, AP_PARAM_FLAG_ENABLE),
 
     // @Param: BITRATE
     // @DisplayName:  Bitrate of CAN interface
