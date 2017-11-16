@@ -23,7 +23,7 @@ using namespace Linux;
 #if CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_LINUX_BEBOP || CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_LINUX_DISCO
 #define STORAGE_DIR "/data/ftp/internal_000/ardupilot"
 #elif CONFIG_HAL_BOARD_SUBTYPE == HAL_BOARD_SUBTYPE_LINUX_EDGE
-#define STORAGE_DIR "/var/lib/ardupilot"
+#define STORAGE_DIR "/edge/ardupilot"
 #elif APM_BUILD_TYPE(APM_BUILD_Replay)
 #define STORAGE_DIR "."
 #else
